@@ -3,6 +3,7 @@
    using namespace std;
    
    void display(int arr[], int n){
+       //Code for traversal
        for (int i = 0; i < n; i++)
        {
            cout<<arr[i]<<" ";
@@ -12,6 +13,7 @@
    }
 
 int indInsertion(int arr[], int size, int element, int capacity, int index){
+    //Code for insertion
     if(size>=capacity){
         return -1;
     }
