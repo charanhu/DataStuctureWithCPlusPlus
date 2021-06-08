@@ -1,1 +1,1 @@
-size+=1;
+= (struct Node*)malloc(sizeof(struct Node));
