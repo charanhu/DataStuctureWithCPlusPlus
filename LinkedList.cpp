@@ -49,12 +49,18 @@ void InsertAtIndex(int data, int index){
     newNode->data=data;
     struct Node * ptr=head;
     int i=0;
-    while(i!=index-1){
+    if(head==NULL){
+        head=newNode;
+        newNode->next=NULL;
+    }
+    else{
+        while(i!=index-1){
         ptr=ptr->next;
         i++;
+        }
+        newNode->next=ptr->next;
+        ptr->next=newNode;
     }
-    newNode->next=ptr->next;
-    ptr->next=newNode;
 
 }
 
@@ -62,11 +68,17 @@ void InsertAtMiddle(int data, int element){
     struct Node * newNode= (struct Node*)malloc(sizeof(struct Node));
     newNode->data=data;
     struct Node * ptr=head;
-    while(ptr->data!=element){
-        ptr=ptr->next;
+    if(head==NULL){
+        head=newNode;
+        newNode->next=NULL;
     }
-    newNode->next=ptr->next;
-    ptr->next=newNode;
+    else{
+        while(ptr->data!=element){
+        ptr=ptr->next;
+        }
+        newNode->next=ptr->next;
+        ptr->next=newNode;
+        }
 
 }
 
@@ -89,6 +101,19 @@ void DeleteEnd(){
     ptr->next=NULL;
     free(qtr);
     
+}
+
+void DeleteAtIndex(int index){
+    struct Node * ptr=head;
+    struct Node * qtr=head->next;
+    int i=0;
+    while(i!=index-1){
+        ptr=ptr->next;
+        qtr=qtr->next;
+        i++;
+    }
+    ptr->next=qtr->next;
+    free(qtr); 
 }
 
 
@@ -125,6 +150,9 @@ int main(){
     display();
     cout<<"Delete End"<<endl;
     DeleteEnd();
+    display();
+    cout<<"Delete Index"<<endl;
+    DeleteAtIndex(2);
     display();
     return 0;
 }
