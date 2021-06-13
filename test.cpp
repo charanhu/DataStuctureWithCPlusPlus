@@ -1,48 +1,69 @@
-#include<iostream>
-#include<cstdlib>
+#include <iostream>
+#include <cstdlib>
 
 using namespace std;
 
-void swap(int *a, int *b) {
+void printArray(int *A, int n)
+{
+   for (int i = 0; i < n; i++)
+   {
+      cout << A[i] << " ";
+   }
+   cout << endl;
+}
+
+int partition(int A[], int low, int high)
+{
+   int pivot = A[low];
+   int i = low + 1;
+   int j = high;
    int temp;
-   temp = *a;
-   *a = *b;
-   *b = temp;
-}
 
-int Partition(int a[], int l, int h) {
-   int pivot, index, i;
-   index = l;
-   pivot = h;
-   for(i = l; i < h; i++) {
-      if(a[i] < a[pivot]) {
-         swap(&a[i], &a[index]);
-         index++;
+   do
+   {
+      while (A[i] <= pivot)
+      {
+         i++;
       }
-   }
-   swap(&a[pivot], &a[index]);
-   return index;
+
+      while (A[j] > pivot)
+      {
+         j--;
+      }
+
+      if (i < j)
+      {
+         temp = A[i];
+         A[i] = A[j];
+         A[j] = temp;
+      }
+   } while (i < j);
+
+   // Swap A[low] and A[j]
+   temp = A[low];
+   A[low] = A[j];
+   A[j] = temp;
+   return j;
 }
 
+void quickSort(int A[], int low, int high)
+{
+   int partitionIndex; // Index of pivot after partition
 
-
-int QuickSort(int a[], int l, int h) {
-   int pindex;
-   if(l < h) {
-      pindex = Partition(a, l, h);
-      QuickSort(a, l, pindex-1);
-      QuickSort(a, pindex+1, h);
+   if (low < high)
+   {
+      partitionIndex = partition(A, low, high);
+      quickSort(A, low, partitionIndex - 1);  // sort left subarray
+      quickSort(A, partitionIndex + 1, high); // sort right subarray
    }
-   return 0;
 }
 
-int main() {
-   int i;
-   int n=6;
-   int arr[n]={89, 1, 89, 78, 4, 89};
-   QuickSort(arr, 0, n-1);
-   cout<<"\nSorted Data ";
-   for (i = 0; i < n; i++)
-      cout<<" "<<arr[i];
+int main()
+{
+   int A[] = {3, 3, 4, 4, 3, 4, 3};
+   int n = 7;
+   printArray(A, n);
+   quickSort(A, 0, n - 1);
+   printArray(A, n);
    return 0;
 }

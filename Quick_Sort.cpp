@@ -1,59 +1,69 @@
-#include<iostream>
-
+#include <iostream>
+#include <cstdlib>
 
 using namespace std;
 
-void PrintArray(int *A, int n){
-    for(int i=0; i<n; i++){
-        cout<<A[i]<<" ";
+void printArray(int *A, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        cout << A[i] << " ";
     }
-    cout<<" "<<endl;
+    cout << endl;
 }
 
-int PartitionArray(int *A, int low, int high){
-    int pivote=A[low];
-    int i=low;
-    int j=high;
+int partition(int A[], int low, int high)
+{
+    int pivot = A[low];
+    int i = low;
+    int j = high;
     int temp;
-    do{
-        while(A[i]<=pivote){
+
+    do
+    {
+        while (A[i] <= pivot)
+        {
             i++;
         }
-        while(A[j]>=pivote){
+
+        while (A[j] > pivot)
+        {
             j--;
         }
-        if(i<j){
-            temp=A[i];
-            A[i]=A[j];
-            A[j]=temp;
+
+        if (i < j)
+        {
+            temp = A[i];
+            A[i] = A[j];
+            A[j] = temp;
         }
-    }while(i<j);
-    temp=A[low];
-    A[low]=A[j];
-    A[j]=temp;
+    } while (i < j);
+
+    // Swap A[low] and A[j]
+    temp = A[low];
+    A[low] = A[j];
+    A[j] = temp;
     return j;
 }
 
+void quickSort(int A[], int low, int high)
+{
+    int partitionIndex; // Index of pivot after partition
 
-void QuickASort(int *A, int low, int high){
-    int j;
-    if(low<high){  
-        j=PartitionArray(A, low, high);
-        QuickASort(A, low, j-1);
-        QuickASort(A, j+1, high);
+    if (low < high)
+    {
+        partitionIndex = partition(A, low, high);
+        quickSort(A, low, partitionIndex - 1);  // sort left subarray
+        quickSort(A, partitionIndex + 1, high); // sort right subarray
     }
 }
 
-
-
-int main(){
-int A[6]={4, 1, 3, 78, 4, 4};
-int n=6;
-PrintArray(A, 6);
-
-QuickASort(A, 0, n-1);
-cout<<"After sorting"<<endl;
-PrintArray(A, 6);
-
-return 0;
+int main()
+{
+    int A[] = {3, 1, 78, 9, 1, 5, 9};
+    int n = 7;
+    printArray(A, n);
+    quickSort(A, 0, n - 1);
+    printArray(A, n);
+    return 0;
 }
