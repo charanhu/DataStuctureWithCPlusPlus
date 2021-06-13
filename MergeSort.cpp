@@ -67,7 +67,6 @@ void mergeSort(int arr[], int low, int high)
     }
 }
 
-
 // Function to print an array
 void printArray(int A[], int size)
 {
@@ -78,7 +77,7 @@ void printArray(int A[], int size)
 // Driver code
 int main()
 {
-    int arr[] = {1,4,2,5,8,1};
+    int arr[] = {1, 4, 2, 5, 8, 1};
     int arr_size = sizeof(arr) / sizeof(arr[0]);
 
     cout << "Given array is \n";
